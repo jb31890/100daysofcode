@@ -1,0 +1,21 @@
+# day 1 mostly skipped, printing and basic var stuffs
+# day 2
+# can use '_' in place of commas in large numbers, for example:
+# var = 123_456_789 is the same as var = 123456789
+# BMI calc
+
+height = input("enter your height in m: ")
+weight = input("enter your weight in kg: ")
+
+# bmi = weight / height** , answer printed as a whole number(int)
+
+bmi = (float(weight) / float(height)**2)
+print(int(bmi))
+
+# day 2 tip calculator
+print("Welcome to the tip calculator.")
+total = float(input("What was the total bill?"))
+tip = int(input("What percentage tip would you like to give? 10, 12, or 15?"))
+people = int(input("How many people to split the bill?"))
+per_person = "{:.2f}".format(round((total + (total * tip/100)) / people, 2))
+print(f"Each person should pay: ${per_person}")

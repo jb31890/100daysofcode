@@ -1,0 +1,68 @@
+# day 3 - if statements and conditional and logical operators. basic flow controls
+
+# day 4 - randomness
+
+import random
+
+random_number = random.randrange(69,420)
+print(f'{random_number}')
+
+def coin_flip(count):
+    a = 0
+    heads = 0
+    tails = 0
+    while a <= count:
+        coin = random.randint(0,1)
+        if coin == 0:
+            #print("Heads")
+            heads += 1
+        else:
+            #print("Tails")
+            tails += 1
+        a += 1
+    print(f"Number of Heads: {heads}, Number of Tails: {tails}")
+        
+coin_flip(999999999)
+
+# short straw game
+
+names_string = input("Enter all the names separated by commas")
+names = names_string.split(", ")
+
+def short_straw(names):
+    number_of_people = (len(names)-1)
+    short = names[random.randint(0,number_of_people)]
+    print(f"The Short Straw is {short}")
+    
+short_straw(names)
+
+# treasure map game
+from random import choice
+
+row1 = ["  ", "  ", "  ", "  "]
+row2 = ["  ", "  ", "  ", "  "]
+row3 = ["  ", "  ", "  ", "  "]
+row4 = ["  ", "  ", "  ", "  "]
+map = [row1, row2, row3, row4]
+
+treasure = [choice(range(len(row1))), choice(range(len(map)))]
+map[treasure[1]][treasure[0]] = " G "
+message = "Where do you think the treasure is? your answer should be a 2 digit number: "
+pick = list(input(message))
+for i in range(0, len(pick)):
+    pick[i] = int(pick[i])
+
+if len(pick) > 2:
+    print("Error: Please enter a 2 digit number")
+elif pick[0] > (len(row1)-1):
+    print("First number too big, max value is " + str(map[0].index(map[0][-1],-1)) )
+elif pick[1] > (len(map[0])-1):
+    print("Second number too big, max value is " + str((len(map[0])-1)))
+else:
+    if treasure == pick:
+        print("You Won!!!!!!\n")
+    else:
+        print("You Lost!!!!!\n")
+    print(f"{row1}\n{row2}\n{row3}\n{row4}")
+
+    
