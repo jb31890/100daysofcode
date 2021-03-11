@@ -26,6 +26,7 @@ import sys
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 bank = 100
+bet_amt = 0
 
 def deal():
     hand = []
@@ -38,6 +39,8 @@ def hit(hand):
     return hand
 
 def win():
+    global bank
+    global bet_amt
     print("You win!")
     bank += bet_amt * 2
     play_again()
@@ -47,15 +50,18 @@ def lose():
     play_again()
     
 def draw():
+    global bank
+    global bet_amt
     print("Draw!")
     bank +=  bet_amt
     play_again()
     
 def play_again():
+    global bank
     again = input("Do you want to play again? y/n ")
     if again.lower() == "y":
         print(bank)
-        blackjack(bank)
+        blackjack()
     elif again.lower() == "n":
         game_over()
     else:
@@ -67,6 +73,8 @@ def game_over():
     sys.exit(1)
     
 def insurance(hand):
+    global bank
+    global bet_amt
     insurance_bet = input("The dealer is showing an Ace, would you like insurance? y/n ")
     if insurance_bet[0].lower() == "y":
         bank -= bet_amt
@@ -85,6 +93,8 @@ def insurance(hand):
         insurance(hand)
 
 def player_choose(hand):
+    global bank
+    global bet_amt
     choice_ = ""
     if len(hand) == 2:
         choice_ = input("Would you like to hit(h), double-down(dd), or stay(s)? ")
@@ -138,21 +148,23 @@ def dealer_choose(hand):
         elif sum(hand) >= 17:
             print(f"dealer hand is {hand}")
 
-def blackjack(bank):
+def blackjack():
+    global bank
+    global bet_amt
     while bank > 0:
         bet_amt = 0
         print(f"You have {bank} in your bank.")
         bet_amt_input = input("Please enter the amount you would like to wager: ")
         try:
-            if int(bet_amt_input) in range(bank):
+            if int(bet_amt_input) in range(bank+1):
                 bet_amt = int(bet_amt_input)
                 bank -= bet_amt
             else:
                 print(f"Please enter a valid number between 0 and {bank}")
-                blackjack(bank)
+                blackjack()
         except ValueError:
             print(f"Please enter a valid number between 0 and {bank}")
-            blackjack(bank)
+            blackjack()
         player_hand = deal()
         dealer_hand = deal()
         print(f"Your hand: {player_hand}. Dealer hand: [{dealer_hand[0]},*]")
@@ -177,4 +189,5 @@ def blackjack(bank):
             draw()
     print("You are out of money, better luck next time!")
 
-blackjack(bank)
+print(logo)
+blackjack()
