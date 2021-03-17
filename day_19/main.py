@@ -1,5 +1,7 @@
 from turtle import Turtle, Screen
 from random import randint
+from sys import exit
+from time import sleep
 
 screen =  Screen()
 screen.colormode(255)
@@ -13,6 +15,26 @@ def random_color(turtle):
     b = randint(0,255)
     turtle.color(r, g, b)
 
+def win_or_lose(turtle, user, winner):
+    if user == winner:
+        screen.clear()
+        turtle.reset()
+        turtle.write("You Won!", True, align="left", font=("Arial", 10, "normal"))
+        play_again()
+    else:
+        screen.clear()
+        turtle.reset()
+        turtle.write("You Lost!", True, align="left", font=("Arial", 10, "normal"))
+        play_again()
+
+def play_again():
+    user_choice = screen.textinput(title="Play Again?", prompt="Would you like to play again? ")
+    if user_choice[0].lower == "y":
+        return race()
+    else:
+        print("Goodbye.")
+        sys.exit()
+
 def race():
     winner = ""
     racers = make_racers()
@@ -24,10 +46,8 @@ def race():
             if racer.xcor() >= 200:
                 winner = RACERS[racers.index(racer)]
                 racer.write("WINNER!", True, align="left", font=("Arial", 10, "normal"))
-    if user_choice == winner:
-        print("You won!")
-    else:
-        print("you lose!")
+                sleep(1)
+                win_or_lose(racer, user_choice, winner)
 
 def make_racers():
     racers = []
