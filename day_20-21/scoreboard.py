@@ -13,10 +13,14 @@ class Scoreboard(Turtle):
         self.pu()
         self.speed("fastest")
         self.color("white")
-        self.goto(-30,280)
-        self.write(f"Score = {self.score}")
+        self.goto(0,280)
+        self.write(f"Score = {self.score}", align="center")
 
     def increase_score(self):
         self.score += 1
         self.clear()
         self.draw()
+    
+    def game_over(self):
+        self.goto(0,0)
+        self.write("Game Over", align="center")

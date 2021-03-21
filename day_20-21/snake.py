@@ -4,6 +4,7 @@ UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
+STARTING_POS = [(0,0), (-20,0), (-40,0)]
 
 class Snake:
 
@@ -13,15 +14,19 @@ class Snake:
         self.head = self.snek[0]
 
     def create_snek(self):
-        d = 0
-        for _ in range(3):
-            snek_piece = Turtle(shape="square")
-            snek_piece.pu()
-            snek_piece.speed("fastest")
-            snek_piece.color("white")
-            snek_piece.goto(-(d), 0)
-            d += 20
-            self.snek.append(snek_piece)
+        for pos in STARTING_POS:
+            self.add_segment(pos)
+
+    def extend(self):
+        self.add_segment(self.snek[-1].position())
+
+    def add_segment(self, pos):
+        snek_piece = Turtle(shape="square")
+        snek_piece.pu()
+        snek_piece.speed("fastest")
+        snek_piece.color("white")
+        snek_piece.goto(pos)
+        self.snek.append(snek_piece)
 
     def move(self):
         for seg in range(len(self.snek) - 1, 0, -1):
